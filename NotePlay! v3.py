@@ -134,7 +134,7 @@ def scheduleOrganizer():
                 continue
             try:
                 subjectStartTime = timeList[subjectStartTimeNum-1]
-            else:
+            except:
                 os.system('cls')
                 time.sleep(0.5)
                 print("INVALID INPUT, INPUT MUST BE WITHIN THE CHOICES PLEASE TRY AGAIN")
