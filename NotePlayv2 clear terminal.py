@@ -168,9 +168,13 @@ def scheduleOrganizer():
             subjectDay = dayList[subjectDayNum-1]
             break
 
-        subjectDict = {'Subject Code':subjectCode, 'Subject Start Time': subjectStartTime, 'Subject End Time':subjectEndTime, 'Subject Day': subjectDay}
-        print(subjectDict)
-
+        subjectDict = {'Subject Code':subjectCode, 
+                       'Subject Start Time':subjectStartTime, 
+                       'Subject End Time':subjectEndTime, 
+                       'Subject Day':subjectDay}
+        for key, value in subjectDict.items():
+            print(f"{key}:", value)
+            
         assignDictionaryToSchedule(subjectDictionary=subjectDict, list=dayList)
 
         print('\nDo you want to enter another')
