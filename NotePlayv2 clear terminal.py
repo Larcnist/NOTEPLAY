@@ -63,7 +63,7 @@ def scheduleOrganizer():
                 
     subjectList = ('ET1', 'CPET1L', 'ET1L', 'PATHFIT1', 'GEC1', 'CHET', 'MATHANA13', 'GEC4', 'BET1','CHETL','NSTP',)
 
-    timeList = [700, 800, 900, 1000, 1100, 1200, 1300, 1500, 1600, 1700, 1800, 1900]
+    timeList = [700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900]
 
     dayList = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
@@ -81,7 +81,6 @@ def scheduleOrganizer():
         if command == 1:
             os.system('cls')
             time.sleep(0.5)
-            break
         elif command == 2:
             os.system('cls')
             time.sleep(0.5)
@@ -120,11 +119,11 @@ def scheduleOrganizer():
                 else:
                     print(f"{i}. {j} ({post_meridian}:00 PM)")
                     post_meridian += 1
-                try:
-                    subjectStartTimeNum = int(input("Subject Start Time: "))
-                except:
-                    print("INVALID INPUT, INPUT MUST BE NUMERIC PLEASE TRY AGAIN")
-                    continue
+            try:
+                subjectStartTimeNum = int(input("Subject Start Time: "))
+            except:
+                print("INVALID INPUT, INPUT MUST BE NUMERIC PLEASE TRY AGAIN")
+                continue
             os.system('cls')
             time.sleep(0.5)
             subjectStartTime = timeList[subjectStartTimeNum-1]
@@ -168,13 +167,9 @@ def scheduleOrganizer():
             subjectDay = dayList[subjectDayNum-1]
             break
 
-        subjectDict = {'Subject Code':subjectCode, 
-                       'Subject Start Time':subjectStartTime, 
-                       'Subject End Time':subjectEndTime, 
-                       'Subject Day':subjectDay}
-        for key, value in subjectDict.items():
-            print(f"{key}:", value)
-            
+        subjectDict = {'Subject Code':subjectCode, 'Subject Start Time': subjectStartTime, 'Subject End Time':subjectEndTime, 'Subject Day': subjectDay}
+        print(subjectDict)
+
         assignDictionaryToSchedule(subjectDictionary=subjectDict, list=dayList)
 
         print('\nDo you want to enter another')
