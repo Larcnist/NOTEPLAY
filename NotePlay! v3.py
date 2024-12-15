@@ -102,7 +102,13 @@ def scheduleOrganizer():
                 time.sleep(0.5)
                 print("INVALID INPUT, INPUT MUST BE NUMERIC PLEASE TRY AGAIN")
                 continue
-            subjectCode = subjectList[subjectCodeNum-1]
+            try:
+                subjectCode = subjectList[subjectCodeNum-1]
+            except:
+                os.system('cls')
+                time.sleep(0.5)
+                print("INVALID INPUT, INPUT MUST BE WITHIN THE CHOICES PLEASE TRY AGAIN")
+                continue
             break
 
         while True:
@@ -126,7 +132,13 @@ def scheduleOrganizer():
                 time.sleep(0.5)
                 print("INVALID INPUT, INPUT MUST BE NUMERIC PLEASE TRY AGAIN")
                 continue
-            subjectStartTime = timeList[subjectStartTimeNum-1]
+            try:
+                subjectStartTime = timeList[subjectStartTimeNum-1]
+            else:
+                os.system('cls')
+                time.sleep(0.5)
+                print("INVALID INPUT, INPUT MUST BE WITHIN THE CHOICES PLEASE TRY AGAIN")
+                continue
             break
 
         while True:
@@ -150,7 +162,13 @@ def scheduleOrganizer():
                 time.sleep(0.5)
                 print("INVALID INPUT, INPUT MUST BE NUMERIC PELASE TRY AGAIN")
                 continue
-            subjectEndTime = timeList[subjectEndTimeNum-1]
+            try:
+                subjectEndTime = timeList[subjectEndTimeNum-1]
+            except:
+                os.system('cls')
+                time.sleep(0.5)
+                print("INVALID INPUT, INPUT MUST BE WITHIN THE CHOICES PLEASE TRY AGAIN")
+                continue
             break
 
         while True:
@@ -164,7 +182,13 @@ def scheduleOrganizer():
                 time.sleep(0.5)
                 print("INVALID INPUT, INPUT MUST BE NUMERIC PLEASE TRY AGAIN")
                 continue
-            subjectDay = dayList[subjectDayNum-1]
+            try:
+                subjectDay = dayList[subjectDayNum-1]
+            except:
+                os.system('cls')
+                time.sleep(0.5)
+                print("INVALID INPUT, INPUT MUST BE WITHIN THE CHOICES PLEASE TRY AGAIN")
+                continue
             break
 
         subjectDict = {'Subject Code':subjectCode, 
