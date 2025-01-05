@@ -273,6 +273,7 @@ class ScheduleOrganizer:
 # --------------------------------------------------
 # NOTES
 class Notes:
+    # THIS FUNCTION 
     def notes_select_subject(self) -> str:
         while True:
             print(f"{BORDER}")
