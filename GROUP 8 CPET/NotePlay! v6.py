@@ -72,7 +72,7 @@ class ScheduleOrganizer:
             break
     
 
-    # GETS THE INPUT OF THE USER ASKING WHETHER THE USER IS DONE ENTERING ALL SCHEDULES OR NOT
+    # THIS FUNCTION GETS THE INPUT OF THE USER ASKING WHETHER THE USER IS DONE ENTERING ALL SCHEDULES OR NOT
     def get_user_done_add_schedule(self) -> int:
         print(f"ARE YOU DONE ENTERING ALL YOUR SCHEDULES\n\n[1] YES\n[2] NO\n{BORDER}\n")
         while True:
@@ -86,7 +86,7 @@ class ScheduleOrganizer:
                 return is_user_done
     
 
-    
+    # THIS FUNCTION LOOPS AND ENUMERATE THROUGH THE TUPLE CALLED SUBJECT_TUPLE AND PRINTS THE ELEMENT AND GETS THE USER'S INPUT AFTER THE LOOP
     def display_subject_items(self) -> str:
         while True:
             clr_terminal()
@@ -103,7 +103,8 @@ class ScheduleOrganizer:
             else:
                 return SUBJECT_TUPLE[subject_code - 1]
     
-    
+
+    # THIS FUNCTION LOOPS AND ENUMERATE THROUGH THE TUPLE CALLED TIME_TUPLE PRINTS THE ELEMENT AND GETS THE USER'S INPUT AFTER THE LOOP
     def display_time_items(self, title: str) -> int:
         while True:
             print(BORDER)
@@ -132,7 +133,8 @@ class ScheduleOrganizer:
                 else:
                     return TIME_TUPLE[subject_end_time - 1]
     
-    
+
+    # THIS FUNCTION LOOPS AND ENUMERATE THROUGH THE TUPLE CALLED DAY_TUPLE AND PRINTS THE ELEMENT AND GETS THE USER'S INPUT AFTER THE LOOP
     def display_day_items(self) -> str:
         while True:
             print(BORDER)
