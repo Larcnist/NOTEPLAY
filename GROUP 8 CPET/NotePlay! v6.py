@@ -318,7 +318,7 @@ class Notes:
                 notes_json.write(json.dumps(obj=notess, indent=4))
     
 
-    # THIS FUNCTION ASKS THE USER WHETHER THE USER IS DONE ENTERING THE NOTES OR NOT 
+    # THIS FUNCTION GETS THE USER'S INPUT
     def get_user_input_notes(self, title: str) -> str:
         clr_terminal()
         print(f"{BORDER}\nENTER A {title}\n{BORDER}")
@@ -333,7 +333,8 @@ class Notes:
             user_input: str = input("INPUT: ")
             return user_input.upper()
     
-    
+
+    # THIS FUNCTIONS PRINTS ALL THE NOTES
     def view_notes(self) -> None:
         with open(file=NOTES_FILE_NAME, mode="r") as notes:
             json_data = json.load(notes)
