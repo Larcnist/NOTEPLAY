@@ -20,7 +20,7 @@ def display_main_menu() -> None:
     print(f"\n{BORDER}")
 
 
-# THIS FUNCTION PRINTS THE ITEMS MAIN MENU
+# THIS FUNCTION PRINTS THE ITEMS OF PROGRAM'S MAIN MENU
 def display_main_menu_items(array: list | tuple, title: str) -> None:
     clr_terminal()
     print(f"{BORDER}\n        {title}\n{BORDER}\n")
@@ -29,7 +29,7 @@ def display_main_menu_items(array: list | tuple, title: str) -> None:
     print(f"\n{BORDER}")
 
 
-
+# THIS FUNCTIONS QUITS THE SELECTED PROGRAM TO MAIN MENU
 def quit_to_main_menu(title: str) -> int:
     while True:
         clr_terminal()
@@ -51,6 +51,7 @@ def quit_to_main_menu(title: str) -> int:
 # --------------------------------------------------
 # SCHEDULE ORGANIZER
 class ScheduleOrganizer:
+    # THIS FUNCTION GETS THE INPUT OF THE USER, SUBJECT CODE, START TIME, END TIME, DAY OF A SCHEDULE 
     def add_schedule(self) -> None:
         while True:
             subject_code: str = Schedule_Organizer.display_subject_items()
@@ -58,10 +59,11 @@ class ScheduleOrganizer:
             subject_end_time: int = Schedule_Organizer.display_time_items("END")
             subject_day: str = Schedule_Organizer.display_day_items()
             schedules[subject_day] = {"SUBJECT CODE": subject_code, "SUBJECT START TIME": subject_start_time, "SUBJECT END TIME": subject_end_time, "SUBJECT DAY": subject_day}
-            try:
+            try: #CREATES A FILE IF THE FILE DOESN'T EXIST
                 with open(file=SCHEDULES_FILE_NAME, mode="x") as schedules_json:
                     schedules_json.write(json.dumps(schedules, indent=4))
-            except FileExistsError:
+            except FileExistsError: 
+                #ACCESS THE DATA OF THE JSON FILE CONVERTS THE DATA INTO PYTHON DICTIONARY AND ASSIGN THE SCHEDULE TO THEIR RESPECTIVE DAY OF THE WEEK AND CONVERT THE PYTHON DICTIONARY INTO A JSON AND WRITES THE JSON FILE WITH NEW DATA
                 with open(file=SCHEDULES_FILE_NAME, mode="r") as schedules_json:
                     schedules_json_data = json.load(schedules_json)
                 schedules_json_data[subject_day][subject_code] = {"SUBJECT CODE": subject_code, "SUBJECT START TIME": subject_start_time, "SUBJECT END TIME": subject_end_time, "SUBJECT DAY": subject_day}
@@ -69,6 +71,7 @@ class ScheduleOrganizer:
                     schedules_json.write(json.dumps(schedules_json_data, indent=4))
             break
     
+
     
     def get_user_done_add_schedule(self) -> int:
         print(f"ARE YOU DONE ENTERING ALL YOUR SCHEDULES\n\n[1] YES\n[2] NO\n{BORDER}\n")
