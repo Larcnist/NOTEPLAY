@@ -72,7 +72,7 @@ class ScheduleOrganizer:
             break
     
 
-    
+    # GETS THE INPUT OF THE USER ASKING WHETHER THE USER IS DONE ENTERING ALL SCHEDULES OR NOT
     def get_user_done_add_schedule(self) -> int:
         print(f"ARE YOU DONE ENTERING ALL YOUR SCHEDULES\n\n[1] YES\n[2] NO\n{BORDER}\n")
         while True:
@@ -85,6 +85,7 @@ class ScheduleOrganizer:
             else:
                 return is_user_done
     
+
     
     def display_subject_items(self) -> str:
         while True:
