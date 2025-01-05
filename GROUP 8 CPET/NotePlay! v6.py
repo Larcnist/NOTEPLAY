@@ -273,44 +273,30 @@ class ScheduleOrganizer:
 # --------------------------------------------------
 # NOTES
 class Notes:
-    # THIS FUNCTION 
-    def notes_select_subject(self) -> str:
-        while True:
-            print(f"{BORDER}")
-            print("        SELECT A SUBJECT")
-            print(f"{BORDER}\n")
-            for num, subj in enumerate(iterable=SUBJECT_TUPLE, start=1):
-                print(f"[{num}] {subj}")
-            print(f"\n{BORDER}")
-            try:
-                note_subject: int = int(input("INPUT: "))
-            except ValueError:
-                continue
-            if note_subject > len(SUBJECT_TUPLE) or note_subject < 1:
-                continue
-            else:
-                return SUBJECT_TUPLE[note_subject-1]
-    
-    
+    # THIS FUNCTION GETS THE INPUT OF THE USER, SUBJECT, TOPIC, DEFINITION, KEYWORD OF NOTES
     def add_notes(self) -> None:
         notes_subject: str = Notes_.get_user_input_notes(title="SUBJECT")
         notes_topic: str = Notes_.get_user_input_notes(title="TOPIC").upper()
         notes_definition: str = Notes_.get_user_input_notes(title="DEFINTION").upper()
         notes_keyword: str = Notes_.get_user_input_notes(title="KEYWORD").upper()
         try:
+            # CREATES A JSON FILE IF THE FILE DOESN'T EXISTS
             with open(NOTES_FILE_NAME, "x") as notes_json:
                 notes_json_data = json.dumps(obj=notess, indent=4)
                 notes_json.write(notes_json_data)
             with open(NOTES_FILE_NAME, mode="r") as notes_json:
                 notes_json_data = json.load(notes_json)
         except FileExistsError:
+            # ACCESS THE DATA OF JSON FILE AND CONVERTS THE DATA TO PYTHON DICTIONARY
             with open(NOTES_FILE_NAME, "r") as notes_json:
                 notes_json_data = json.load(notes_json)
+        # ASSIGN THE USER'S NOTES TO THE RESPECTIVE SUBJECT
         notes_json_data[notes_subject] = {notes_topic: {"TOPIC": notes_topic, "DEFINITION": notes_definition, "KEYWORD": notes_keyword}}
         with open(NOTES_FILE_NAME, "w") as notes_json:
             notes_json.write(json.dumps(obj=notes_json_data, indent=4))
     
-    
+
+    # THIS FUNCTION ASKS THE USER WHETHER THE USER IS DONE ENTERING THE NOTES OR NOT 
     def get_user_done_add_notes(self) -> int:
         while True:
             print(f"{BORDER}ARE YOU DONE ENTERING YOUR NOTES{BORDER}\n\n[1] YES\n[2] NO\n{BORDER}")
@@ -323,14 +309,16 @@ class Notes:
             else:
                 return is_user_done
     
-    
+
+    # THIS FUNCTION CLEAR THE NOTES AND GETS THE USER CONFIRMATION IF THE USER REALY WANTS TO CLEAR THE SCHEDULE OR NOT
     def clear_notes(self) -> None:
         user_confirmation: int = int(input("ARE YOU SURE DO YOU WANT TO CLEAR YOUR NOTES"))
         if user_confirmation == 1:
             with open(file=NOTES_FILE_NAME, mode="w") as notes_json:
                 notes_json.write(json.dumps(obj=notess, indent=4))
     
-    
+
+    # THIS FUNCTION ASKS THE USER WHETHER THE USER IS DONE ENTERING THE NOTES OR NOT 
     def get_user_input_notes(self, title: str) -> str:
         clr_terminal()
         print(f"{BORDER}\nENTER A {title}\n{BORDER}")
