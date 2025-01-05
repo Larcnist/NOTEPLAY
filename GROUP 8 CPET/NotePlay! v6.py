@@ -4,8 +4,6 @@ import keyword
 import os, json, time, random as rand, sys
 from typing import Any
 
-from pygame import PREALLOC
-
 
 # THIS FUNCTION PRINTS A WELCOME MESAGE AND CALLS THE <display_main_menu> FUNCTION
 def display_welcome_message() -> None:
@@ -24,12 +22,14 @@ def display_main_menu() -> None:
     print(f"\n{BORDER}")
 
 
+# THIS FUNCTION PRINTS THE ITEMS MAIN MENU
 def display_main_menu_items(array: list | tuple, title: str) -> None:
     clr_terminal()
     print(f"{BORDER}\n        {title}\n{BORDER}\n")
     for num, item in enumerate(iterable=array, start=1):
         print(f"    [{num}] {item}")
     print(f"\n{BORDER}")
+
 
 
 def quit_to_main_menu(title: str) -> int:
