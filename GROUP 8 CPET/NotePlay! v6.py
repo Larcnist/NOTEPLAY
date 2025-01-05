@@ -400,21 +400,6 @@ class Flashcards:
                 sys.exit()
             else:
                 continue
-    
-
-    # 
-    def quit_flashcards(self) -> int:
-        '''1 = quit, 2 = continue'''
-        try:
-            user_confirmation: int = int(input(f"[1] QUIT FLASHCARDS\n[2] QUIT PROGRAM\n{BORDER}\nINPUT: "))
-        except ValueError:
-            return 2
-        if user_confirmation == 1: # QUIT SETTINGS
-            return 1
-        elif user_confirmation == 2: # QUIT PROGRAM
-            quit()
-        else:
-            return 2
 # --------------------------------------------------
 
 
@@ -424,6 +409,9 @@ class Flashcards:
 # --------------------------------------------------
 # HANGMAN
 class Hangman:
+    # THIS FUNCTION ACCESS THE DATA OF JSON FILE CONVERTS IT INTO PYTHON DICTIONARY AND LOOPS THROUGH THE DCTIONARY AND CHECKS IF THE SUBJECT HAS A NOTES, IF THE SUBJECT HAS A NOTE IT APPENDS THE SUBJECT TO A LIST CALLED <hangman_subj>
+    # AND RANDOMIZES THE <hangman_subj> AND ASSIGN THE VALUE TO <random_subj> AND LOOPS THROUGH TO TOPICS OF THE SUBJECT AND APPENDS ALL THE TOPICS TO A LIST CALLED <hangman_topic>
+    # AND RANDOMIZES THE <hangman_topic> AND ASSIGN THE VALUE TO <random_topic> AND ASSIGN THE DEFINITION, AND KEYWORD OF THE TOPIC AND RETURNS THE <correct_keyword, random_subj, random_definition>
     def play_hangman(self) -> tuple:
         clr_terminal()
         with open(file=NOTES_FILE_NAME, mode="r") as hangman_json:
@@ -439,9 +427,11 @@ class Hangman:
                 hangman_topic.append(topic)
         random_topic: str = rand.choice(hangman_topic)
         correct_keyword: str = hangman_json_data[random_subj][random_topic]["KEYWORD"]
-        return correct_keyword, random_subj, hangman_json_data[random_subj][random_topic]["DEFINITION"]
+        hangman_definition: str = hangman_json_data[random_subj][random_topic]["DEFINITION"]
+        return correct_keyword, random_subj, hangman_definition
     
-    
+
+    # 
     def get_user_input_hangman_settings(self) -> int:
         '''1: set hangman rounds, 2: quit hangman settings'''
         while True:
