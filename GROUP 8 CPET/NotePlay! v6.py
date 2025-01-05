@@ -6,6 +6,8 @@ from typing import Any
 
 from pygame import PREALLOC
 
+
+# THIS FUNCTION PRINTS A WELCOME MESAGE AND CALLS THE <display_main_menu> FUNCTION
 def display_welcome_message() -> None:
     clr_terminal()
     print(BORDER)
@@ -14,6 +16,7 @@ def display_welcome_message() -> None:
     display_main_menu()
 
 
+# THIS FUNCTION PRINTS THE MAIN MENU
 def display_main_menu() -> None:
     print(f"{BORDER}\n")
     for num, item in enumerate(iterable=MAIN_MENU_ITEMS, start=1):
