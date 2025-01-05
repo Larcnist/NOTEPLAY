@@ -1,0 +1,116 @@
+{
+    "monday": {
+        "et1": {
+            "subject code": "et1",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "monday"
+        },
+        "cpet1l": {
+            "subject code": "cpet1l",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "monday"
+        },
+        "et1l": {
+            "subject code": "et1l",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "monday"
+        }
+    },
+    "tuesday": {
+        "pathfit1": {
+            "subject code": "pathfit1",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "tuesday"
+        },
+        "gec1": {
+            "subject code": "gec1",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "tuesday"
+        }
+    },
+    "wednesday": {
+        "et1l": {
+            "subject code": "et1l",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "wednesday"
+        },
+        "chet": {
+            "subject code": "chet",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "wednesday"
+        },
+        "mathana13": {
+            "subject code": "mathana13",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "wednesday"
+        }
+    },
+    "thursday": {
+        "gec4": {
+            "subject code": "gec4",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "thursday"
+        },
+        "gec1": {
+            "subject code": "gec1",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "thursday"
+        },
+        "bet1": {
+            "subject code": "bet1",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "thursday"
+        }
+    },
+    "friday": {
+        "cpet1l": {
+            "subject code": "cpet1l",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "friday"
+        },
+        "mathana13": {
+            "subject code": "mathana13",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "friday"
+        },
+        "chet": {
+            "subject code": "chet",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "friday"
+        },
+        "chetl": {
+            "subject code": "chetl",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "friday"
+        }
+    },
+    "saturday": {
+        "nstp": {
+            "subject code": "nstp",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "saturday"
+        },
+        "cwts": {
+            "subject code": "cwts",
+            "subject start time": 1000,
+            "subject end time": 1000,
+            "subject day": "saturday"
+        }
+    }
+}

@@ -1,0 +1,60 @@
+{
+    "MONDAY": {
+        "ET1": {
+            "SUBJECT CODE": "ET1",
+            "SUBJECT START TIME": 800,
+            "SUBJECT END TIME": 1100,
+            "SUBJECT DAY": "MONDAY"
+        },
+        "CPET1L": {
+            "SUBJECT CODE": "CPET1L",
+            "SUBJECT START TIME": 1200,
+            "SUBJECT END TIME": 1500,
+            "SUBJECT DAY": "MONDAY"
+        },
+        "ET1L": {
+            "SUBJECT CODE": "ET1L",
+            "SUBJECT START TIME": 1600,
+            "SUBJECT END TIME": 1900,
+            "SUBJECT DAY": "MONDAY"
+        }
+    },
+    "TUESDAY": {
+        "PATHFIT1": {
+            "SUBJECT CODE": "PATHFIT1",
+            "SUBJECT START TIME": 700,
+            "SUBJECT END TIME": 900,
+            "SUBJECT DAY": "TUESDAY"
+        },
+        "GEC1": {
+            "SUBJECT CODE": "GEC1",
+            "SUBJECT START TIME": 900,
+            "SUBJECT END TIME": 1100,
+            "SUBJECT DAY": "TUESDAY"
+        }
+    },
+    "WEDNESDAY": {},
+    "THURSDAY": {
+        "GEC1": {
+            "SUBJECT CODE": "GEC1",
+            "SUBJECT START TIME": 1000,
+            "SUBJECT END TIME": 1100,
+            "SUBJECT DAY": "THURSDAY"
+        },
+        "BET1": {
+            "SUBJECT CODE": "BET1",
+            "SUBJECT START TIME": 1200,
+            "SUBJECT END TIME": 1500,
+            "SUBJECT DAY": "THURSDAY"
+        }
+    },
+    "FRIDAY": {},
+    "SATURDAY": {
+        "CWTS": {
+            "SUBJECT CODE": "CWTS",
+            "SUBJECT START TIME": 800,
+            "SUBJECT END TIME": 1100,
+            "SUBJECT DAY": "SATURDAY"
+        }
+    }
+}
