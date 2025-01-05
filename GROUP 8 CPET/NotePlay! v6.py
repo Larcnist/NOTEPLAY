@@ -431,7 +431,7 @@ class Hangman:
         return correct_keyword, random_subj, hangman_definition
     
 
-    # 
+    # THIS FUNCTION GETS THE USER'S INPUT AND ASKS WHETHER TO SET HANGMAN ROUNDS OR TO QUIT THE HANGMAN SETTINGS
     def get_user_input_hangman_settings(self) -> int:
         '''1: set hangman rounds, 2: quit hangman settings'''
         while True:
@@ -441,8 +441,9 @@ class Hangman:
                 continue
             if user_input <= 2 and user_input >= 1:
                 return user_input
-        
-        
+
+
+    # THIS FUNCITON SETS THE ROUND OF HANGMAN
     def set_hangman_rounds(self):
         while True:
             clr_terminal()
@@ -454,7 +455,7 @@ class Hangman:
             return rounds
         
     
-    
+    # THIS FUNCTION QUITS THE HANGMAN SETTINGS AND ASKS WHETHER TO QUIT THE HANGMAN SETTIGNS OR TO QUIT THE PROGRAM
     def quit_hangman_settings(self) -> None:
         while True:
             clr_terminal()
@@ -471,6 +472,7 @@ class Hangman:
                 continue
 
 
+# THIS FUNCTION CLEARS THE TERMINAL
 def clr_terminal() -> None:
     os.system('cls')
     time.sleep(0.5)
@@ -577,14 +579,16 @@ Notes_ = Notes()
 Flashcards_ = Flashcards()
 Hangman_ = Hangman()
 
+
 try:
+    # THIS BLOCK OF CODE ACCES THE DATA OF THE FILE AND IF THE FILE DOESN'T HAVE ANY DATA IT OVERWRITES THE FILE WITH NEW DATA
     with open(file=SCHEDULES_FILE_NAME, mode="r") as schedules_json:
         schedules_json_data = json.load(schedules_json)
-    print(schedules_json_data)
     if len(schedules_json_data) == 0:
         with open(file=SCHEDULES_FILE_NAME, mode="w") as schedules_json:
             schedules_json.write(json.dumps(schedules, indent=4))
 except json.JSONDecodeError:
+    # THIS BLOCK OF CODE CREATES AND WRITES A FILE
     with open(file=SCHEDULES_FILE_NAME, mode="w") as schedules_json:
             schedules_json.write(json.dumps(schedules, indent=4))
             
