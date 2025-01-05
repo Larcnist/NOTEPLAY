@@ -155,19 +155,8 @@ class ScheduleOrganizer:
             else:
                 return DAY_TUPLE[subject_day - 1]
     
-    
-    def append_start_time_to_list(self) -> None:
-        for day, subjects in schedules.items():
-            for attr in subjects.values():
-                if attr["SUBJECT DAY"] == day:
-                    start_time_list[day].append(attr["SUBJECT START TIME"])
-    
-    
-    def sort_start_time_list(self) -> None:
-        for day in start_time_list:
-            start_time_list[day].sort()
-    
-    
+
+    # THIS FUNCTION SORTS THE SCHEDULES BY THE SBUJECT'S START TIME IN ASCENDING ORDER
     def sort_schedule(self) -> None:
         with open(file=SCHEDULES_FILE_NAME, mode='r') as schedules_json:
             schedules_json_data = json.load(schedules_json)
@@ -188,7 +177,8 @@ class ScheduleOrganizer:
                 with open(file=SCHEDULES_FILE_NAME, mode='w') as schedules_json:
                     schedules_json.write(json.dumps(schedules_json_data, indent=4))
     
-    
+
+    # THIS FUNCTIONS ACCESS THE DATA OF JSON FILE AND CONVERTS DATA TO PYTHON DICTIONARY AND GETS THE USER INPUT IF TO VIEW SPECIFIC DAY OF SCHEDULE OR VIEW ALL SCHEDULES OR TO QUIT THE VIEW SCHEDULE
     def view_schedules(self) -> None:
         with open(file=SCHEDULES_FILE_NAME, mode="r") as schedules_json:
             schedules_json_data = json.load(schedules_json)
@@ -252,7 +242,8 @@ class ScheduleOrganizer:
             else:
                 continue
                     
-    
+
+    # THIS FUNCTION CLEARS THE SCHEDULE
     def clear_schedule(self) -> None:
         try:
             with open(file=SCHEDULES_FILE_NAME, mode="w") as notes_json:
@@ -260,7 +251,8 @@ class ScheduleOrganizer:
         except FileNotFoundError:
             print("INVALID, FILE DOES NOT EXIST")
     
-    
+
+    # THIS FUNCTION GETS THE USER CONFIRMATION IF THE USER REALY WANTS TO CLEAR THE SCHEDULE
     def get_clear_schedule_confirmation(self) -> int:
         while True:
             print(BORDER)
