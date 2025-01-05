@@ -358,6 +358,9 @@ class Notes:
 # --------------------------------------------------
 # FLASHCARDS
 class Flashcards:
+    # THIS FUNCTION ACCESS THE DATA OF JSON FILE CONVERTS IT INTO PYTHON DICTIONARY AND LOOPS THROUGH THE DCTIONARY AND CHECKS IF THE SUBJECT HAS A NOTES, IF THE SUBJECT HAS A NOTE IT APPENDS THE SUBJECT TO A LIST CALLED <notes_subj>
+    # AND RANDOMIZES THE <notes_subj> AND ASSIGN THE VALUE TO <random_subj> AND LOOPS THROUGH TO TOPICS OF THE SUBJECT AND APPENDS ALL THE TOPICS TO A LIST CALLED <notes_topic>
+    # AND RANDOMIZES THE <notes_topic> AND ASSIGN THE VALUE TO <random_topic> AND ASSIGN THE DEFINITION, AND KEYWORD OF THE TOPIC AND RETURNS THE <random_subj, random_topic, random_definition, random_keyword>
     def play_flashcards(self) -> tuple:
         with open(file=NOTES_FILE_NAME, mode="r") as flashcards_json:
             flashcards_json_data = json.load(flashcards_json)
@@ -374,13 +377,15 @@ class Flashcards:
         random_keyword = flashcards_json_data[random_subj][random_topic]["KEYWORD"]
         return random_subj, random_topic, random_definition, random_keyword
     
-    
+
+    # THIS FUNCTION SETS HOW MANY FLASHCARDS 
     def set_flashcards_num(self, flashcards_num: int):
         print(f"{BORDER}\n        SETTINGS\n{BORDER}\n\n    NUMBER OF FLASHCARDS: {flashcards_num}\n\n{BORDER}")
         flashcards_num = int(input("SET NUMBER OF FLASHCARDS: "))
         return flashcards_num
     
-    
+
+    # THIS FUNCTION QUITS THE FLASHCARDS SETTINGS TO THE MAIN MENU OF FLASHCARDS AND ASKS THE USER WHETHER TO QUIT THE FLASHCARDS SETTINGS OR QUIT THE PROGRAM 
     def quit_flashcards_settings(self):
         '''1 = quit, 2 = continue'''
         while True:
@@ -396,7 +401,8 @@ class Flashcards:
             else:
                 continue
     
-    
+
+    # 
     def quit_flashcards(self) -> int:
         '''1 = quit, 2 = continue'''
         try:
