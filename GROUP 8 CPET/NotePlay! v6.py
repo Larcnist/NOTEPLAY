@@ -29,7 +29,7 @@ def display_main_menu_items(array: list | tuple, title: str) -> None:
     print(f"\n{BORDER}")
 
 
-# THIS FUNCTIONS QUITS THE SELECTED PROGRAM TO MAIN MENU
+# THIS FUNCTION QUITS THE SELECTED PROGRAM TO MAIN MENU
 def quit_to_main_menu(title: str) -> int:
     while True:
         clr_terminal()
@@ -178,7 +178,7 @@ class ScheduleOrganizer:
                     schedules_json.write(json.dumps(schedules_json_data, indent=4))
     
 
-    # THIS FUNCTIONS ACCESS THE DATA OF JSON FILE AND CONVERTS DATA TO PYTHON DICTIONARY AND GETS THE USER INPUT IF TO VIEW SPECIFIC DAY OF SCHEDULE OR VIEW ALL SCHEDULES OR TO QUIT THE VIEW SCHEDULE
+    # THIS FUNCTION ACCESS THE DATA OF JSON FILE AND CONVERTS DATA TO PYTHON DICTIONARY AND GETS THE USER INPUT IF TO VIEW SPECIFIC DAY OF SCHEDULE OR VIEW ALL SCHEDULES OR TO QUIT THE VIEW SCHEDULE
     def view_schedules(self) -> None:
         with open(file=SCHEDULES_FILE_NAME, mode="r") as schedules_json:
             schedules_json_data = json.load(schedules_json)
@@ -334,7 +334,7 @@ class Notes:
             return user_input.upper()
     
 
-    # THIS FUNCTIONS PRINTS ALL THE NOTES
+    # THIS FUNCTION PRINTS ALL THE NOTES
     def view_notes(self) -> None:
         with open(file=NOTES_FILE_NAME, mode="r") as notes:
             json_data = json.load(notes)
