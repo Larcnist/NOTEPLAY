@@ -1,13 +1,10 @@
-import keyword
 import os, json, time, random as rand, sys
-from typing import Any
-
 
 # THIS FUNCTION PRINTS A WELCOME MESAGE AND CALLS THE <display_main_menu> FUNCTION
 def display_welcome_message() -> None:
     clr_terminal()
     print(BORDER)
-    print("\n        WELCOME TO NOTEPLAY\n")
+    print("\n       WELCOME TO NOTEPLAY!\n")
     print(BORDER)
     display_main_menu()
 
@@ -29,7 +26,7 @@ def display_main_menu_items(array: list | tuple, title: str) -> None:
     print(f"\n{BORDER}")
 
 
-# THIS FUNCTION QUITS THE SELECTED PROGRAM TO MAIN MENU
+# THIS FUNCTIONS QUITS THE SELECTED PROGRAM TO MAIN MENU
 def quit_to_main_menu(title: str) -> int:
     while True:
         clr_terminal()
@@ -43,6 +40,7 @@ def quit_to_main_menu(title: str) -> int:
         elif user_confirmation == 2:
             sys.exit()
         else:
+
             continue
 
 
@@ -178,7 +176,7 @@ class ScheduleOrganizer:
                     schedules_json.write(json.dumps(schedules_json_data, indent=4))
     
 
-    # THIS FUNCTION ACCESS THE DATA OF JSON FILE AND CONVERTS DATA TO PYTHON DICTIONARY AND GETS THE USER INPUT IF TO VIEW SPECIFIC DAY OF SCHEDULE OR VIEW ALL SCHEDULES OR TO QUIT THE VIEW SCHEDULE
+    # THIS FUNCTIONS ACCESS THE DATA OF JSON FILE AND CONVERTS DATA TO PYTHON DICTIONARY AND GETS THE USER INPUT IF TO VIEW SPECIFIC DAY OF SCHEDULE OR VIEW ALL SCHEDULES OR TO QUIT THE VIEW SCHEDULE
     def view_schedules(self) -> None:
         with open(file=SCHEDULES_FILE_NAME, mode="r") as schedules_json:
             schedules_json_data = json.load(schedules_json)
@@ -256,7 +254,7 @@ class ScheduleOrganizer:
     def get_clear_schedule_confirmation(self) -> int:
         while True:
             print(BORDER)
-            print("ARE YOU SURE DO YOU WANT TO CLEAR YOUR SCHEDULE")
+            print("ARE YOU SURE DO YOU WANT TO CLEAR YOUR SCHEDULE?")
             print("[1] YES")
             print("[2] NO")
             print(BORDER)
@@ -312,10 +310,20 @@ class Notes:
 
     # THIS FUNCTION CLEAR THE NOTES AND GETS THE USER CONFIRMATION IF THE USER REALY WANTS TO CLEAR THE SCHEDULE OR NOT
     def clear_notes(self) -> None:
-        user_confirmation: int = int(input("ARE YOU SURE DO YOU WANT TO CLEAR YOUR NOTES"))
-        if user_confirmation == 1:
-            with open(file=NOTES_FILE_NAME, mode="w") as notes_json:
-                notes_json.write(json.dumps(obj=notess, indent=4))
+        while True:
+            print(BORDER)
+            print("ARE YOU SURE DO YOU WANT TO CLEAR YOUR NOTES?")
+            print("[1] YES")
+            print("[2] NO")
+            print(BORDER)
+            try:
+                user_confirmation: int = int(input("INPUT: "))
+            except:
+                continue
+            if user_confirmation == 1:
+                with open(file=NOTES_FILE_NAME, mode="w") as notes_json:
+                    notes_json.write(json.dumps(obj=notess, indent=4))
+                break
     
 
     # THIS FUNCTION GETS THE USER'S INPUT
@@ -334,7 +342,7 @@ class Notes:
             return user_input.upper()
     
 
-    # THIS FUNCTION PRINTS ALL THE NOTES
+    # THIS FUNCTIONS PRINTS ALL THE NOTES
     def view_notes(self) -> None:
         with open(file=NOTES_FILE_NAME, mode="r") as notes:
             json_data = json.load(notes)
@@ -715,7 +723,12 @@ while True:
             if flashcards_input == 1: # PLAY FLASHCARDS
                 clr_terminal()
                 for i in range(flashcards_num):
-                    flashcards_subj, flashcards_topic, flashcards_definition, flashcards_keyword = Flashcards_.play_flashcards()
+                    try:
+                        flashcards_subj, flashcards_topic, flashcards_definition, flashcards_keyword = Flashcards_.play_flashcards()
+                    except:
+                        print("NO NOTES AVAILABLE, PLEASE ADD A NOTES FIRST.")
+                        time.sleep(1)
+                        break
                     print(f"{BORDER}")
                     print(f"        PLAYING FLASHCARD")
                     print(f"{BORDER}\n")
@@ -782,7 +795,13 @@ while True:
         if run_hangman == True:
             if hangman_input == 1: # PLAY HANGMAN
                 for i in range(hangman_rounds):
-                    hangman_keyword, hangman_subj, hangman_definition = Hangman_.play_hangman()
+                    try:
+                        hangman_keyword, hangman_subj, hangman_definition = Hangman_.play_hangman()
+                    except:
+                        print("NO NOTES AVAILABLE, PLEASE ADD A NOTES FIRST.")
+                        time.sleep(1)
+                        break
+                        
                     while True:
                         clr_terminal()
                         print(f"{BORDER}")
