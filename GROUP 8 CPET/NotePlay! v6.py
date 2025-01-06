@@ -52,14 +52,54 @@ class ScheduleOrganizer:
     # THIS FUNCTION GETS THE INPUT OF THE USER, SUBJECT CODE, START TIME, END TIME, DAY OF A SCHEDULE 
     def add_schedule(self) -> None:
         while True:
-            subject_code: str = Schedule_Organizer.display_subject_items()
-            subject_start_time: int = Schedule_Organizer.display_time_items("START")
-            subject_end_time: int = Schedule_Organizer.display_time_items("END")
-            subject_day: str = Schedule_Organizer.display_day_items()
-            schedules[subject_day] = {"SUBJECT CODE": subject_code, "SUBJECT START TIME": subject_start_time, "SUBJECT END TIME": subject_end_time, "SUBJECT DAY": subject_day}
+            try:
+                subject_code: str = Schedule_Organizer.display_subject_items()
+                clr_terminal()
+                if subject_code == "1":
+                    return "1"
+                elif subject_code == '2':
+                    continue
+                else:
+                    pass
+            except:
+                continue
+            try:
+                subject_start_time: int = Schedule_Organizer.display_time_items("START")
+                clr_terminal()
+                if subject_start_time == "1":
+                    return "1"
+                elif subject_start_time == '2':
+                    continue
+                else:
+                    pass
+            except:
+                continue
+            try:
+                subject_end_time: int = Schedule_Organizer.display_time_items("END")
+                clr_terminal()
+                if subject_end_time == "1":
+                    return "1"
+                elif subject_end_time == '2':
+                    continue
+                else:
+                    pass
+            except:
+                continue
+            try:
+                subject_day: str = Schedule_Organizer.display_day_items()
+                clr_terminal()
+                if subject_day == "1":
+                    return "1"
+                elif subject_day == '2':
+                    continue
+                else:
+                    pass
+            except:
+                continue
+            SCHEDULES[subject_day] = {"SUBJECT CODE": subject_code, "SUBJECT START TIME": subject_start_time, "SUBJECT END TIME": subject_end_time, "SUBJECT DAY": subject_day}
             try: #CREATES A FILE IF THE FILE DOESN'T EXIST
                 with open(file=SCHEDULES_FILE_NAME, mode="x") as schedules_json:
-                    schedules_json.write(json.dumps(schedules, indent=4))
+                    schedules_json.write(json.dumps(SCHEDULES, indent=4))
             except FileExistsError: 
                 #ACCESS THE DATA OF THE JSON FILE CONVERTS THE DATA INTO PYTHON DICTIONARY AND ASSIGN THE SCHEDULE TO THEIR RESPECTIVE DAY OF THE WEEK AND CONVERT THE PYTHON DICTIONARY INTO A JSON AND WRITES THE JSON FILE WITH NEW DATA
                 with open(file=SCHEDULES_FILE_NAME, mode="r") as schedules_json:
@@ -72,8 +112,9 @@ class ScheduleOrganizer:
 
     # THIS FUNCTION GETS THE INPUT OF THE USER ASKING WHETHER THE USER IS DONE ENTERING ALL SCHEDULES OR NOT
     def get_user_done_add_schedule(self) -> int:
-        print(f"ARE YOU DONE ENTERING ALL YOUR SCHEDULES\n\n[1] YES\n[2] NO\n{BORDER}\n")
+        clr_terminal()
         while True:
+            print(f"ARE YOU DONE ENTERING ALL YOUR SCHEDULES\n\n[1] YES\n[2] NO\n{BORDER}\n")
             try:
                 is_user_done: int = int(input("INPUT: "))
             except ValueError:
@@ -92,15 +133,20 @@ class ScheduleOrganizer:
             for num, item in enumerate(iterable=SUBJECT_TUPLE, start=1):
                 print(f"        [{num}] {item}")
             print(f"\n{BORDER}")
+            print("TO QUIT TYPE 'QUIT'")
+            print(BORDER)
+            subject_code: str = input("INPUT: ").upper()
             try:
-                subject_code: int = int(input("INPUT: "))
-            except ValueError:
-                continue
-            if subject_code > len(SUBJECT_TUPLE) or subject_code < 1:
-                continue
-            else:
-                return SUBJECT_TUPLE[subject_code - 1]
-    
+                subject_code = int(subject_code)
+                if subject_code > len(SUBJECT_TUPLE) or subject_code < 1:
+                    continue
+                else:
+                    return SUBJECT_TUPLE[subject_code - 1]
+            except:
+                if subject_code == "QUIT":
+                    return "1"
+                else:
+                    return "2"
 
     # THIS FUNCTION LOOPS AND ENUMERATE THROUGH THE TUPLE CALLED TIME_TUPLE PRINTS THE ELEMENT AND GETS THE USER'S INPUT AFTER THE LOOP
     def display_time_items(self, title: str) -> int:
@@ -112,24 +158,35 @@ class ScheduleOrganizer:
             for num, item in enumerate(iterable=TIME_TUPLE, start=1):
                 print(f"        [{num}] {item}")
             print(f"\n{BORDER}")
+            print("TO QUIT TYPE 'QUIT'")
+            print(BORDER)
             if title == "START":
+                subject_start_time: str = input("INPUT: ")
                 try:
-                    subject_start_time: int = int(input("INPUT: "))
+                    subject_start_time = int(subject_start_time)
+                    if subject_start_time > len(TIME_TUPLE) or subject_start_time < 1:
+                        continue
+                    else:
+                        return TIME_TUPLE[subject_start_time - 1]
+                    
                 except ValueError:
-                    continue
-                if subject_start_time > len(TIME_TUPLE) or subject_start_time < 1:
-                    continue
-                else:
-                    return TIME_TUPLE[subject_start_time - 1]
+                    if subject_start_time == "QUIT":
+                        return "1"
+                    else:
+                        return "2"
             else:
+                subject_end_time: str = input("INPUT: ")
                 try:
-                    subject_end_time: int = int(input("INPUT: "))
+                    subject_end_time = int(subject_end_time)
+                    if subject_end_time > len(TIME_TUPLE) or subject_end_time < 1:
+                        continue
+                    else:
+                        return TIME_TUPLE[subject_end_time - 1]
                 except ValueError:
-                    continue
-                if subject_end_time > len(TIME_TUPLE) or subject_end_time < 1:
-                    continue
-                else:
-                    return TIME_TUPLE[subject_end_time - 1]
+                    if subject_end_time == "QUIT":
+                        return "1"
+                    else:
+                        return "2"
     
 
     # THIS FUNCTION LOOPS AND ENUMERATE THROUGH THE TUPLE CALLED DAY_TUPLE AND PRINTS THE ELEMENT AND GETS THE USER'S INPUT AFTER THE LOOP
@@ -142,17 +199,21 @@ class ScheduleOrganizer:
             for num, item in enumerate(iterable=DAY_TUPLE, start=1):
                 print(f"        [{num}] {item}")
             print(f"\n{BORDER}")
-            
+            print("TO QUIT TYPE 'QUIT'")
+            print(BORDER)
+            subject_day: str = input("INPUT: ")
             try:
-                subject_day: int = int(input("INPUT: "))
+                subject_day = int(subject_day)
+                if subject_day > len(SUBJECT_TUPLE) or subject_day < 1:
+                    continue
+                else:
+                    return DAY_TUPLE[subject_day - 1]
             except ValueError:
-                continue
+                if subject_day == "QUIT":
+                    return "1"
+                else:
+                    return "2"
             
-            if subject_day > len(SUBJECT_TUPLE) or subject_day < 1:
-                continue
-            else:
-                return DAY_TUPLE[subject_day - 1]
-    
 
     # THIS FUNCTION SORTS THE SCHEDULES BY THE SBUJECT'S START TIME IN ASCENDING ORDER
     def sort_schedule(self) -> None:
@@ -167,7 +228,6 @@ class ScheduleOrganizer:
                 subject_values.append(attrs)
                 
             sorted_monday_schedule = sorted(subject_values, key=lambda x: x["SUBJECT START TIME"])
-            print(sorted_monday_schedule)
             
             schedules_json_data[day] = {}
             for values in sorted_monday_schedule:
@@ -245,7 +305,7 @@ class ScheduleOrganizer:
     def clear_schedule(self) -> None:
         try:
             with open(file=SCHEDULES_FILE_NAME, mode="w") as notes_json:
-                notes_json.write(json.dumps(schedules, indent=4))
+                notes_json.write(json.dumps(SCHEDULES, indent=4))
         except FileNotFoundError:
             print("INVALID, FILE DOES NOT EXIST")
     
@@ -273,25 +333,63 @@ class ScheduleOrganizer:
 class Notes:
     # THIS FUNCTION GETS THE INPUT OF THE USER, SUBJECT, TOPIC, DEFINITION, KEYWORD OF NOTES
     def add_notes(self) -> None:
-        notes_subject: str = Notes_.get_user_input_notes(title="SUBJECT")
-        notes_topic: str = Notes_.get_user_input_notes(title="TOPIC").upper()
-        notes_definition: str = Notes_.get_user_input_notes(title="DEFINTION").upper()
-        notes_keyword: str = Notes_.get_user_input_notes(title="KEYWORD").upper()
-        try:
-            # CREATES A JSON FILE IF THE FILE DOESN'T EXISTS
-            with open(NOTES_FILE_NAME, "x") as notes_json:
-                notes_json_data = json.dumps(obj=notess, indent=4)
-                notes_json.write(notes_json_data)
-            with open(NOTES_FILE_NAME, mode="r") as notes_json:
-                notes_json_data = json.load(notes_json)
-        except FileExistsError:
-            # ACCESS THE DATA OF JSON FILE AND CONVERTS THE DATA TO PYTHON DICTIONARY
-            with open(NOTES_FILE_NAME, "r") as notes_json:
-                notes_json_data = json.load(notes_json)
-        # ASSIGN THE USER'S NOTES TO THE RESPECTIVE SUBJECT
-        notes_json_data[notes_subject] = {notes_topic: {"TOPIC": notes_topic, "DEFINITION": notes_definition, "KEYWORD": notes_keyword}}
-        with open(NOTES_FILE_NAME, "w") as notes_json:
-            notes_json.write(json.dumps(obj=notes_json_data, indent=4))
+        while True:
+            try:
+                notes_subject: str = Notes_.get_user_input_notes(title="SUBJECT")
+                if notes_subject == "1":
+                    return "1"
+                elif notes_subject == '2':
+                    continue
+                else:
+                    pass
+            except:
+                continue
+            try:
+                notes_topic: str = Notes_.get_user_input_notes(title="TOPIC").upper()
+                if notes_subject == "1":
+                    return "1"
+                elif notes_subject == '2':
+                    continue
+                else:
+                    pass
+            except:
+                continue
+            try:
+                notes_definition: str = Notes_.get_user_input_notes(title="DEFINTION").upper()
+                if notes_subject == "1":
+                    return "1"
+                elif notes_subject == '2':
+                    continue
+                else:
+                    pass
+            except:
+                continue
+            try:
+                notes_keyword: str = Notes_.get_user_input_notes(title="KEYWORD").upper()
+                if notes_subject == "1":
+                    return "1"
+                elif notes_subject == '2':
+                    continue
+                else:
+                    pass
+            except:
+                continue
+            try:
+                # CREATES A JSON FILE IF THE FILE DOESN'T EXISTS
+                with open(NOTES_FILE_NAME, "x") as notes_json:
+                    notes_json_data = json.dumps(obj=notess, indent=4)
+                    notes_json.write(notes_json_data)
+                with open(NOTES_FILE_NAME, mode="r") as notes_json:
+                    notes_json_data = json.load(notes_json)
+            except FileExistsError:
+                # ACCESS THE DATA OF JSON FILE AND CONVERTS THE DATA TO PYTHON DICTIONARY
+                with open(NOTES_FILE_NAME, "r") as notes_json:
+                    notes_json_data = json.load(notes_json)
+            # ASSIGN THE USER'S NOTES TO THE RESPECTIVE SUBJECT
+            notes_json_data[notes_subject][notes_topic] = {"TOPIC": notes_topic, "DEFINITION": notes_definition, "KEYWORD": notes_keyword}
+            with open(NOTES_FILE_NAME, "w") as notes_json:
+                notes_json.write(json.dumps(obj=notes_json_data, indent=4))
+            break
     
 
     # THIS FUNCTION ASKS THE USER WHETHER THE USER IS DONE ENTERING THE NOTES OR NOT 
@@ -323,7 +421,9 @@ class Notes:
             if user_confirmation == 1:
                 with open(file=NOTES_FILE_NAME, mode="w") as notes_json:
                     notes_json.write(json.dumps(obj=notess, indent=4))
-                break
+            else:
+                return "1"
+            break
     
 
     # THIS FUNCTION GETS THE USER'S INPUT
@@ -335,8 +435,18 @@ class Notes:
             for num, subj in enumerate(SUBJECT_TUPLE, start=1):
                 print(f"    [{num}] {subj}")
             print(f"\n{BORDER}")
-            user_input_int: int = int(input("INPUT: "))
-            return SUBJECT_TUPLE[user_input_int - 1]
+            print("TO QUIT TYPE 'QUIT'")
+            print(f"{BORDER}")
+            user_input_int: str = input("INPUT: ").upper()
+            try:
+                user_input_int = int(user_input_int)
+                if user_input_int <= 12 and user_input_int >= 1:
+                    return SUBJECT_TUPLE[user_input_int - 1]
+            except:
+                if user_input_int == 'QUIT':
+                    return "1"
+                else:
+                    return "2" 
         else:
             user_input: str = input("INPUT: ")
             return user_input.upper()
@@ -388,9 +498,14 @@ class Flashcards:
 
     # THIS FUNCTION SETS HOW MANY FLASHCARDS 
     def set_flashcards_num(self, flashcards_num: int):
-        print(f"{BORDER}\n        SETTINGS\n{BORDER}\n\n    NUMBER OF FLASHCARDS: {flashcards_num}\n\n{BORDER}")
-        flashcards_num = int(input("SET NUMBER OF FLASHCARDS: "))
-        return flashcards_num
+        while True:
+            clr_terminal()
+            print(f"{BORDER}\n        SETTINGS\n{BORDER}\n\n    NUMBER OF FLASHCARDS: {flashcards_num}\n\n{BORDER}")
+            try:
+                flashcards_num = int(input("SET NUMBER OF FLASHCARDS: "))
+                return flashcards_num
+            except:
+                continue
     
 
     # THIS FUNCTION QUITS THE FLASHCARDS SETTINGS TO THE MAIN MENU OF FLASHCARDS AND ASKS THE USER WHETHER TO QUIT THE FLASHCARDS SETTINGS OR QUIT THE PROGRAM 
@@ -494,7 +609,7 @@ SUBJECT_TUPLE: tuple = ("ET1", "CPET1L", "ET1L", "PATHFIT1", "GEC1", "CHET", "MA
 TIME_TUPLE = (700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900)
 DAY_TUPLE: tuple = ("MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY")
 SCHEDULES_FILE_NAME = "schedules.json"
-schedules: dict = {"MONDAY": {}, "TUESDAY": {}, "WEDNESDAY": {}, "THURSDAY": {}, "FRIDAY": {}, "SATURDAY": {},}
+SCHEDULES: dict = {"MONDAY": {}, "TUESDAY": {}, "WEDNESDAY": {}, "THURSDAY": {}, "FRIDAY": {}, "SATURDAY": {},}
 sorted_schedules: dict = {"MONDAY": {}, "TUESDAY": {}, "WEDNESDAY": {}, "THURSDAY": {}, "FRIDAY": {}, "SATURDAY": {},}
 start_time_list: dict = {"MONDAY": [], "TUESDAY": [], "WEDNESDAY": [], "THURSDAY": [], "FRIDAY": [], "SATURDAY": []}
 foo_schedule_file_name = "schedule_placeholder.json"
@@ -594,11 +709,11 @@ try:
         schedules_json_data = json.load(schedules_json)
     if len(schedules_json_data) == 0:
         with open(file=SCHEDULES_FILE_NAME, mode="w") as schedules_json:
-            schedules_json.write(json.dumps(schedules, indent=4))
+            schedules_json.write(json.dumps(SCHEDULES, indent=4))
 except json.JSONDecodeError:
     # THIS BLOCK OF CODE CREATES AND WRITES A FILE
     with open(file=SCHEDULES_FILE_NAME, mode="w") as schedules_json:
-            schedules_json.write(json.dumps(schedules, indent=4))
+            schedules_json.write(json.dumps(SCHEDULES, indent=4))
             
 while True:
     display_welcome_message()
@@ -621,18 +736,18 @@ while True:
         
         match main_menu_input:
             case 1:
-                display_main_menu_items(array=SCHEDULE_ORGANIZER_MAIN_MENU_ITEMS, title="SCHEDULE ORGANIZER")
-                try:
-                    schedule_organizer_input: int = int(input("INPUT: "))
-                    run_schedule_organizer = True
-                except ValueError:
-                    break
+                # display_main_menu_items(array=SCHEDULE_ORGANIZER_MAIN_MENU_ITEMS, title="SCHEDULE ORGANIZER")
+                # try:
+                #     schedule_organizer_input: int = int(input("INPUT: "))
+                # except ValueError:
+                #     continue
+                run_schedule_organizer = True
             case 2:
-                display_main_menu_items(array=NOTES_MAIN_MENU_ITEMS, title="NOTES")
-                try:
-                    notes_input: int = int(input("INPUT: "))
-                except ValueError:
-                    break
+                # display_main_menu_items(array=NOTES_MAIN_MENU_ITEMS, title="NOTES")
+                # try:
+                #     notes_input: int = int(input("INPUT: "))
+                # except ValueError:
+                #     break
                 run_notes = True
                 try:
                     with open(file=NOTES_FILE_NAME, mode="x") as notes_json:
@@ -641,227 +756,275 @@ while True:
                 except FileExistsError:
                     pass
             case 3:
-                display_main_menu_items(array=FLASHCARDS_MAIN_MENU_ITEMS, title="FLASHCARDS")
-                try:
-                    flashcards_input: int = int(input("INPUT: "))
-                except ValueError:
-                    break
+                # display_main_menu_items(array=FLASHCARDS_MAIN_MENU_ITEMS, title="FLASHCARDS")
+                # try:
+                #     flashcards_input: int = int(input("INPUT: "))
+                # except ValueError:
+                #     break
                 run_flashcards: bool = True
             case 4:
-                display_main_menu_items(array=HANGMAN_MAIN_MENU_ITEMS, title="    HANGMAN")
-                try:
-                    hangman_input: int = int(input("INPUT: "))
-                except ValueError:
-                    break
+                # display_main_menu_items(array=HANGMAN_MAIN_MENU_ITEMS, title="    HANGMAN")
+                # try:
+                #     hangman_input: int = int(input("INPUT: "))
+                # except ValueError:
+                #     break
                 run_hangman = True
             case 5:
+                print("THANKYOU FOR PLAYINGG!! <3")
                 quit()
         
         # ----------------------------------------------------------------
         # SCHEDULE ORGANIZER
         if run_schedule_organizer == True:
-            if schedule_organizer_input == 1: # ADD SCHEDULE
-                while True:
-                    Schedule_Organizer.add_schedule()
-                    Schedule_Organizer.sort_schedule()
-                    is_user_done: int = Schedule_Organizer.get_user_done_add_schedule()
-                    if is_user_done == 1:
+            while True:
+                display_main_menu_items(array=SCHEDULE_ORGANIZER_MAIN_MENU_ITEMS, title="SCHEDULE ORGANIZER")
+                try:
+                    schedule_organizer_input: int = int(input("INPUT: "))
+                except ValueError:
+                    continue
+                if schedule_organizer_input == 1: # ADD SCHEDULE
+                    while True:
+                        quit_user_input = Schedule_Organizer.add_schedule()
+                        if quit_user_input == "1":
+                            break
+                        Schedule_Organizer.sort_schedule()
+                        is_user_done: int = Schedule_Organizer.get_user_done_add_schedule()
+                        if is_user_done == 1:
+                            break
+                        else:
+                            continue
+                    
+                elif schedule_organizer_input == 2: # VIEW SCHEDULES
+                    Schedule_Organizer.view_schedules()
+                    
+                elif schedule_organizer_input == 3: # CLEAR SCHEDULE
+                    user_input: int = Schedule_Organizer.get_clear_schedule_confirmation()
+                    if user_input == 1:
+                        Schedule_Organizer.clear_schedule()
+                        
+                    else:
                         break
                     
-                    else:
-                        continue
-                
-            elif schedule_organizer_input == 2: # VIEW SCHEDULES
-                Schedule_Organizer.view_schedules()
-                
-            elif schedule_organizer_input == 3: # CLEAR SCHEDULE
-                user_input: int = Schedule_Organizer.get_clear_schedule_confirmation()
-                if user_input == 1:
-                    Schedule_Organizer.clear_schedule()
-                    
+                elif schedule_organizer_input == 4: # QUIT
+                    user_input: int = quit_to_main_menu(title="SCHEDULE ORGANIZER")
+                    if user_input == 1:
+                        break
                 else:
-                    break
-                
-            elif schedule_organizer_input == 4: # QUIT
-                user_input: int = quit_to_main_menu(title="SCHEDULE ORGANIZER")
-                if user_input == 1:
-                    break
-            
+                    continue
+            if user_input == 1:
+                break
         # ----------------------------------------------------------------
         # NOTES
         if run_notes == True:
-            if notes_input == 1: # ADD NOTES
-                while True:
-                    Notes_.add_notes()
-                    is_user_done: int = Notes_.get_user_done_add_notes()
-                    if is_user_done == 1:
-                        break
+            while True:
+                display_main_menu_items(array=NOTES_MAIN_MENU_ITEMS, title="NOTES")
+                try:
+                    notes_input: int = int(input("INPUT: "))
+                except ValueError:
+                    continue
+                if notes_input == 1: # ADD NOTES
+                    while True:
+                        quit_user_input = Notes_.add_notes()
+                        if quit_user_input == "1":
+                            break
+                        is_user_done: int = Notes_.get_user_done_add_notes()
+                        if is_user_done == 1:
+                            break
+                        
+                        else:
+                            continue
+                elif notes_input == 2: # VIEW NOTES
+                    clr_terminal()
+                    Notes_.view_notes()
+                    x = input("PRESS ENTER TO CONTINUE...")
                     
+                elif notes_input == 3: # CLEAR NOTES
+                    quit_user_input = Notes_.clear_notes()
+                    if quit_user_input == "1":
+                        break
                     else:
-                        continue
-            elif notes_input == 2: # VIEW NOTES
-                clr_terminal()
-                Notes_.view_notes()
-                x = input("PRESS ENTER TO CONTINUE...")
-                
-            elif notes_input == 3: # CLEAR NOTES
-                Notes_.clear_notes()
-                print(f"{BORDER}")
-                print(f"        NOTES HAVE BEEN CLEARED")
-                print(f"{BORDER}")
-                time.sleep(1.5)
-                
-            elif notes_input == 4: # QUIT NOTES
-                user_input: int = quit_to_main_menu(title="NOTES")
-                if user_input == 1:
-                    break
+                        print(f"{BORDER}")
+                        print(f"        NOTES HAVE BEEN CLEARED")
+                        print(f"{BORDER}")
+                        time.sleep(1.5)
+                    
+                elif notes_input == 4: # QUIT NOTES
+                    user_input: int = quit_to_main_menu(title="NOTES")
+                    if user_input == 1:
+                        break
+
+                else:
+                    continue
+            if user_input == 1:
+                break
             
         # ----------------------------------------------------------------
         # FLASHCARDS
         run_flashcards_settings: bool = False
         if run_flashcards == True:
-            if flashcards_input == 1: # PLAY FLASHCARDS
-                clr_terminal()
-                for i in range(flashcards_num):
-                    try:
-                        flashcards_subj, flashcards_topic, flashcards_definition, flashcards_keyword = Flashcards_.play_flashcards()
-                    except:
-                        print("NO NOTES AVAILABLE, PLEASE ADD A NOTES FIRST.")
-                        time.sleep(1)
-                        break
-                    print(f"{BORDER}")
-                    print(f"        PLAYING FLASHCARD")
-                    print(f"{BORDER}\n")
-                    print(f"    SUBJECT: {flashcards_subj}:")
-                    print(f"    TOPIC: {flashcards_topic}:")
-                    print(f"    DEFINITION: {flashcards_definition}")
-                    print(f"\n{BORDER}")
-                    print("INSTRUCTIONS: TYPE THE CORRECT KEYWORD")
-                    print(BORDER)
-                    print("TO QUIT TYPE 'QUIT'")
-                    print(BORDER)
-                    user_input_keyword: str = input("INPUT: ")
-                    if user_input_keyword == flashcards_keyword:
-                        print(f"{BORDER}\n    CORRECT ANSWER!!:>\n{BORDER}")
-                        x = input("PRESS ENTER TO CONTINUE")
-                    
-                    elif user_input_keyword == "QUIT":
-                        break
-                    
-                    else:
+            while True:
+                display_main_menu_items(array=FLASHCARDS_MAIN_MENU_ITEMS, title="FLASHCARDS")
+                try:
+                    flashcards_input: int = int(input("INPUT: "))
+                except ValueError:
+                    continue
+                if flashcards_input == 1: # PLAY FLASHCARDS
+                    clr_terminal()
+                    for i in range(flashcards_num):
+                        try:
+                            flashcards_subj, flashcards_topic, flashcards_definition, flashcards_keyword = Flashcards_.play_flashcards()
+                        except:
+                            print("NO NOTES AVAILABLE, PLEASE ADD A NOTES FIRST.")
+                            time.sleep(1)
+                            break
                         print(f"{BORDER}")
                         print(f"        PLAYING FLASHCARD")
                         print(f"{BORDER}\n")
                         print(f"    SUBJECT: {flashcards_subj}:")
                         print(f"    TOPIC: {flashcards_topic}:")
                         print(f"    DEFINITION: {flashcards_definition}")
-                        print(f"    KEYWORD: {flashcards_keyword}")
                         print(f"\n{BORDER}")
-                        x = input("PRESS ENTER TO CONTINUE")
-                        continue
-                
-            elif flashcards_input == 2: # FLASHCARDS SETTINGS
-                while True:
-                    clr_terminal()
-                    print(f"{BORDER}\n        FLASHCARDS SETTINGS\n{BORDER}\n")
-                    print(f"    NUMBER OF FLASHCARDS: {flashcards_num}\n\n{BORDER}\n")
-                    for num, settings in enumerate(FLASHCARDS_SETTINGS_MENU_ITEMS, start=1):
-                        print(f"    [{num}] {settings}")
-                    print(f"\n{BORDER}")
-                    try:
-                        settings_menu_input: int = int(input("INPUT: "))
-                    except ValueError:
-                        continue
-
-                    if settings_menu_input == 1: # SET FLASHCARDS NUM
-                        flashcards_num = Flashcards_.set_flashcards_num(flashcards_num=flashcards_num)
-                        user_exit_code: int = 2
+                        print("INSTRUCTIONS: TYPE THE CORRECT KEYWORD")
+                        print(BORDER)
+                        print("TO QUIT TYPE 'QUIT'")
+                        print(BORDER)
+                        user_input_keyword: str = input("INPUT: ").upper()
+                        if user_input_keyword == flashcards_keyword:
+                            print(f"{BORDER}\n    CORRECT ANSWER!!:>\n{BORDER}")
+                            x = input("PRESS ENTER TO CONTINUE")
                         
-                    elif settings_menu_input == 2: # QUIT FLASHCARDS SETTINGS
-                        user_exit_code: int = Flashcards_.quit_flashcards_settings()
-                        if user_exit_code == 1:
+                        elif user_input_keyword == "QUIT":
                             break
                         
-                    else:
-                        continue
+                        else:
+                            print(f"{BORDER}")
+                            print(f"        PLAYING FLASHCARD")
+                            print(f"{BORDER}\n")
+                            print(f"    SUBJECT: {flashcards_subj}:")
+                            print(f"    TOPIC: {flashcards_topic}:")
+                            print(f"    DEFINITION: {flashcards_definition}")
+                            print(f"    KEYWORD: {flashcards_keyword}")
+                            print(f"\n{BORDER}")
+                            x = input("PRESS ENTER TO CONTINUE")
+                            continue
                     
-            elif flashcards_input == 3: # QUIT 
-                user_input: int = quit_to_main_menu(title="FLASHCARDS")
-                if user_input == 1:
-                    break
+                elif flashcards_input == 2: # FLASHCARDS SETTINGS
+                    while True:
+                        clr_terminal()
+                        print(f"{BORDER}\n        FLASHCARDS SETTINGS\n{BORDER}\n")
+                        print(f"    NUMBER OF FLASHCARDS: {flashcards_num}\n\n{BORDER}\n")
+                        for num, settings in enumerate(FLASHCARDS_SETTINGS_MENU_ITEMS, start=1):
+                            print(f"    [{num}] {settings}")
+                        print(f"\n{BORDER}")
+                        try:
+                            settings_menu_input: int = int(input("INPUT: "))
+                        except ValueError:
+                            continue
+
+                        if settings_menu_input == 1: # SET FLASHCARDS NUM
+                            flashcards_num = Flashcards_.set_flashcards_num(flashcards_num=flashcards_num)
+                            user_exit_code: int = 2
+                            
+                        elif settings_menu_input == 2: # QUIT FLASHCARDS SETTINGS
+                            user_exit_code: int = Flashcards_.quit_flashcards_settings()
+                            if user_exit_code == 1:
+                                break
+                            
+                        else:
+                            continue
+                        
+                elif flashcards_input == 3: # QUIT 
+                    user_input: int = quit_to_main_menu(title="FLASHCARDS")
+                    if user_input == 1:
+                        break
+            if user_input == 1:
+                break
         
         # ----------------------------------------------------------------
         # HANGMAN
         if run_hangman == True:
-            if hangman_input == 1: # PLAY HANGMAN
-                for i in range(hangman_rounds):
-                    try:
-                        hangman_keyword, hangman_subj, hangman_definition = Hangman_.play_hangman()
-                    except:
-                        print("NO NOTES AVAILABLE, PLEASE ADD A NOTES FIRST.")
-                        time.sleep(1)
-                        break
-                        
+            while True:
+                display_main_menu_items(array=HANGMAN_MAIN_MENU_ITEMS, title="    HANGMAN")
+                try:
+                    hangman_input: int = int(input("INPUT: "))
+                except ValueError:
+                    continue
+                if hangman_input == 1: # PLAY HANGMAN
+                    for i in range(hangman_rounds):
+                        try:
+                            hangman_keyword, hangman_subj, hangman_definition = Hangman_.play_hangman()
+                        except:
+                            print("NO NOTES AVAILABLE, PLEASE ADD A NOTES FIRST.")
+                            time.sleep(1)
+                            break
+                            
+                        while True:
+                            clr_terminal()
+                            print(f"{BORDER}")
+                            print(f"             HANGMAN")
+                            print(f"{BORDER}\n")
+                            print(f"    POINTS: {hangman_points}")
+                            print(f"    USER ATTEMPTS: {hangman_attempts}")
+                            print(f"\n{BORDER}")
+                            print(f"{HANGMAN_PICS[hangman_attempts]}\n")
+                            print(f"    SUBJECT: {hangman_subj}")
+                            print(f"    DEFINITION: {hangman_definition}")
+                            print(f"\n{BORDER}")
+                            print("TO QUIT TYPE 'QUIT'")
+                            print(f"{BORDER}")
+                            if hangman_attempts == HANGMAN_MAX_ATTEMPTS - 1:
+                                print(f"{BORDER}\n")
+                                print(f"\t    GAME OVER")
+                                print(f"\n{BORDER}")
+                                print(f"\tYOU GOT {hangman_points} POINTS")
+                                print(f"{BORDER}")
+                                hangman_attempts = 0
+                                x = input("PRESS ENTER TO CONTINUE...")
+                                break
+                            
+                            user_input_keyword: str = input("INPUT: ").upper()
+                            if user_input_keyword == hangman_keyword:
+                                # clr_terminal()
+                                print(f"{BORDER}\n    CORRECT ANSWER!!:>\n{BORDER}")
+                                hangman_points+=1
+                                hangman_attempts = 0
+                                x = input("PRESS ENTER TO CONTINUE...")
+                                break
+                            elif user_input_keyword == "QUIT":
+                                break
+                            
+                            else:
+                                # clr_terminal()
+                                print(f"{BORDER}\n\tSORRY WRONG ANSWER\n{BORDER}")
+                                hangman_attempts+=1
+                                x = input("PRESS ENTER TO CONTINUE...")
+                                
+                        if hangman_attempts == HANGMAN_MAX_ATTEMPTS:
+                            break
+                        elif user_input_keyword == "QUIT":
+                            break
+                            
+                elif hangman_input == 2: # HANGMAN SETTINGS
                     while True:
                         clr_terminal()
                         print(f"{BORDER}")
-                        print(f"             HANGMAN")
+                        print(f"        HANGMAN SETTINGS")
                         print(f"{BORDER}\n")
-                        print(f"    POINTS: {hangman_points}")
-                        print(f"    USER ATTEMPTS: {hangman_attempts}")
+                        for num, menu_item in enumerate(HANGMAN_SETTINGS_MENU_ITEMS, start=1):
+                            print(f"    [{num}] {menu_item}")
                         print(f"\n{BORDER}")
-                        print(f"{HANGMAN_PICS[hangman_attempts]}\n")
-                        print(f"    SUBJECT: {hangman_subj}")
-                        print(f"    DEFINITION: {hangman_definition}")
-                        print(f"\n{BORDER}")
+                        hangman_settings_menu_input: int = Hangman_.get_user_input_hangman_settings()
+                        if hangman_settings_menu_input == 1:
+                            hangman_rounds = Hangman_.set_hangman_rounds()
                             
-                        if hangman_attempts == HANGMAN_MAX_ATTEMPTS - 1:
-                            print(f"{BORDER}\n")
-                            print(f"\t    GAME OVER")
-                            print(f"\n{BORDER}")
-                            print(f"\tYOU GOT {hangman_points} POINTS")
-                            print(f"{BORDER}")
-                            hangman_attempts = 0
-                            x = input("PRESS ENTER TO CONTINUE...")
-                            break
-                        
-                        user_input_keyword: str = input("INPUT: ")
-                        if user_input_keyword == hangman_keyword:
-                            # clr_terminal()
-                            print(f"{BORDER}\n    CORRECT ANSWER!!:>\n{BORDER}")
-                            hangman_points+=1
-                            hangman_attempts = 0
-                            x = input("PRESS ENTER TO CONTINUE...")
-                            break
-                        
-                        else:
-                            # clr_terminal()
-                            print(f"{BORDER}\n\tSORRY WRONG ANSWER\n{BORDER}")
-                            hangman_attempts+=1
-                            x = input("PRESS ENTER TO CONTINUE...")
-                            
-                    if hangman_attempts == HANGMAN_MAX_ATTEMPTS:
+                        elif hangman_settings_menu_input == 2:
+                            Hangman_.quit_hangman_settings()
                         break
-                        
-            elif hangman_input == 2: # HANGMAN SETTINGS
-                while True:
-                    clr_terminal()
-                    print(f"{BORDER}")
-                    print(f"        HANGMAN SETTINGS")
-                    print(f"{BORDER}\n")
-                    for num, menu_item in enumerate(HANGMAN_SETTINGS_MENU_ITEMS, start=1):
-                        print(f"    [{num}] {menu_item}")
-                    print(f"\n{BORDER}")
-                    hangman_settings_menu_input: int = Hangman_.get_user_input_hangman_settings()
-                    if hangman_settings_menu_input == 1:
-                        hangman_rounds = Hangman_.set_hangman_rounds()
-                        
-                    elif hangman_settings_menu_input == 2:
-                        Hangman_.quit_hangman_settings()
-                    break
-            
-            elif hangman_input == 3: # QUIT HANGMAN
-                user_exit_code = quit_to_main_menu(title="HANGMAN")
-                if user_exit_code == 1:
-                    break
+                
+                elif hangman_input == 3: # QUIT HANGMAN
+                    user_exit_code = quit_to_main_menu(title="HANGMAN")
+                    if user_exit_code == 1:
+                        break
+            if user_input == 1:
+                break
             
