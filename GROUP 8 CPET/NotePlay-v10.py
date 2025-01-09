@@ -98,7 +98,6 @@ class ScheduleOrganizer:
                     pass
             except:
                 continue
-            SCHEDULES[subject_day] = {"SUBJECT CODE": subject_code, "SUBJECT START TIME": subject_start_time, "SUBJECT END TIME": subject_end_time, "SUBJECT DAY": subject_day}
             try: #CREATES A FILE IF THE FILE DOESN'T EXIST
                 with open(file=SCHEDULES_FILE_NAME, mode="x") as schedules_json:
                     schedules_json.write(json.dumps(SCHEDULES, indent=4))
